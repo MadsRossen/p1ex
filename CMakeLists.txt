@@ -15,10 +15,11 @@ project(p1ex)
 ## System dependencies are found with CMake's conventions
  find_package(catkin REQUIRED COMPONENTS
  roscpp
- geometry_msgs 
- move_base_msgs 
- actionlib 
  turtlesim
+ geometry_msgs
+ std_msgs
+ genmsg
+
  
  )
 
@@ -26,7 +27,6 @@ project(p1ex)
   CATKIN_DEPENDS
   roscpp 
   turtlesim
-
  )
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -59,18 +59,20 @@ project(p1ex)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
+ #add_message_files(DIRECTORY msg
+  # FILES
+  # Num.msg
 #   Message1.msg
 #   Message2.msg
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
+ #add_service_files(DIRECTORY srv
+ #  FILES
+ #  AddTwoInts.srv
 #   Service1.srv
 #   Service2.srv
-# )
+ #)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -81,9 +83,9 @@ project(p1ex)
 
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
+ #  DEPENDENCIES
+ #  std_msgs  # Or other packages containing msgs
+ #)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
