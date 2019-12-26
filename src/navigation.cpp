@@ -7,10 +7,9 @@
 #include <turtlesim/TeleportAbsolute.h>
 #include <turtlesim/SetPen.h>
 #include <std_msgs/String.h>
-     
+#include <sstream>     
 using namespace std;
-int length;
-int width;
+
 
 
 int main(int argc, char **argv)
@@ -18,21 +17,33 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "two");
   ros::NodeHandle nh;
   ros::Publisher len_pub = nh.advertise<std_msgs::String>("leng", 10);
+  ros::Rate loop_rate(0.5);
   //ros::Subscriber pose_sub = nh.subscribe("turtle1/pose", 1, poseCallback);
   //ros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
   //ros::ServiceClient reset = nh.serviceClient<std_srvs::Empty>("reset");
   //ros::Timer timer = nh.createTimer(ros::Duration(0.016), boost::bind(timerCallback, _1, twist_pub));
+  float i;
+  int length = (i);
+  float k;
+  int width = (k);
 
   cout << "What is the length ";
-  cin >> length ;
-  cout << "What is the width ";
-  cin >> width ;
- 
+  cin >> i;
+  //cout << "What is the width ";
+  //cin >> width ;
+ int count = 0;
+ while (ros::ok()){
   std_msgs::String msg;
-  std::stringstream msglen;
-  msglen << width,length << count;
-  msg.data = msglen.str();
+  std::stringstream ss;
+  ss << "length" << count;
+  msg.data = ss.str();
+  ROS_INFO("%s", msg.data.c_str());
   len_pub.publish(msg);
+  ros::spinOnce();
+  loop_rate.sleep();
+  ++count;
+  }
+  ros::shutdown();
 
   return 0;
 }

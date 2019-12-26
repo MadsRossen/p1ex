@@ -9,22 +9,24 @@
 #include <std_msgs/String.h>
 
 using namespace std;
- void lis(const std_msgs::String::ConstPtr& msg);
+
+void lis(const std_msgs::String::ConstPtr& msg){
+    ROS_INFO("I heard: [%s]", msg->data.c_str());
+}
+
 
 int main(int argc, char **argv)
 {
     //Here we define our map
     ros::init(argc, argv, "one");
     
-
     float box_size = ros::param::param("~box_size", 9);
 
-
-    ros::NodeHandle nh;
+    ros::NodeHandle n;
     ros::service::waitForService("/turtle1/teleport_absolute", -1);
-    ros::ServiceClient teleport_client = nh.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
-    ros::ServiceClient pen_client = nh.serviceClient<turtlesim::SetPen>("/turtle1/set_pen");
-    ros::Subscriber lengt = nh.subscribe("leng", 10, lis);
+    ros::ServiceClient teleport_client = n.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
+    ros::ServiceClient pen_client = n.serviceClient<turtlesim::SetPen>("/turtle1/set_pen");
+    ros::Subscriber sub = n.subscribe("leng", 10, lis);
 
     turtlesim::SetPen pen_srv;
 
@@ -33,7 +35,11 @@ int main(int argc, char **argv)
 
     turtlesim::TeleportAbsolute srv;
 
-    srv.request.x = lengt-box_size/2;
+    int wp = 2;
+    int lp = 2;
+
+
+    srv.request.x = 5.5-box_size/2;
     srv.request.y = 5.5-box_size/2;
     teleport_client.call(srv);
 
@@ -72,6 +78,8 @@ int main(int argc, char **argv)
     pen_srv.request.g = 228;
     pen_srv.request.b = 228;
     pen_client.call(pen_srv);
+
+    ros::spin();
 
     return 0;
 }
