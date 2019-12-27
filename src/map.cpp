@@ -13,9 +13,11 @@ using namespace std;
 class CallbackSub
 {
     public:
-    char hej;
+    char length;
+    char width;
     void lis(const std_msgs::String::ConstPtr& msg){
-        hej = msg->data[1];
+        length = msg->data[0];
+        width = msg->data[1];
 
     //ROS_INFO(hej);
     //ROS_INFO("Sum: %ld", (long int)hej;
@@ -49,7 +51,8 @@ int main(int argc, char **argv)
     bool run = true;
     while (ros::ok())
     {
-        cout << newCallback.hej <<endl;
+        cout << newCallback.length <<endl;
+        cout << newCallback.width <<endl;
         ros::spinOnce();
         loop_rate.sleep();  
     }
@@ -57,7 +60,7 @@ int main(int argc, char **argv)
     float wp = 5.5;
     int lp = 2;
     
-    srv.request.x = wp-box_size/2;
+    srv.request.x = newCallback.length-box_size/2;
     srv.request.y = 5.5-box_size/2;
     teleport_client.call(srv);
 
