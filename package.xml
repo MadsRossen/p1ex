@@ -52,6 +52,9 @@
 <depend>roscpp</depend>
 <depend>turtlesim</depend>
 
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
+
 <test_depend>roslaunch</test_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>

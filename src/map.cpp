@@ -35,11 +35,11 @@ int main(int argc, char **argv)
 
     turtlesim::TeleportAbsolute srv;
 
-    int wp = 2;
+    float wp = 5.5;
     int lp = 2;
 
 
-    srv.request.x = 5.5-box_size/2;
+    srv.request.x = wp-box_size/2;
     srv.request.y = 5.5-box_size/2;
     teleport_client.call(srv);
 

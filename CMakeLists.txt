@@ -23,12 +23,6 @@ project(p1ex)
  
  )
 
- catkin_package(
-  CATKIN_DEPENDS
-  roscpp 
-  turtlesim
- )
-
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -59,20 +53,18 @@ project(p1ex)
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
- #add_message_files(DIRECTORY msg
-  # FILES
-  # Num.msg
+ #add_message_files(
+ # FILES
+ # Num.msg
 #   Message1.msg
 #   Message2.msg
-# )
+ #)
 
 ## Generate services in the 'srv' folder
- #add_service_files(DIRECTORY srv
- #  FILES
- #  AddTwoInts.srv
+#add_service_files(FILES AddTwoInts.srv
 #   Service1.srv
 #   Service2.srv
- #)
+#)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -82,10 +74,10 @@ project(p1ex)
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
+ #generate_messages(
  #  DEPENDENCIES
  #  std_msgs  # Or other packages containing msgs
- #)
+# )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -101,6 +93,11 @@ project(p1ex)
 ##   * uncomment the "generate_dynamic_reconfigure_options" section below
 ##     and list every .cfg file to be processed
 
+catkin_package(
+  CATKIN_DEPENDS
+  roscpp 
+  turtlesim
+ )
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 # generate_dynamic_reconfigure_options(
 #   cfg/DynReconf1.cfg
