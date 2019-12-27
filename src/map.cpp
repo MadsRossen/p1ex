@@ -7,24 +7,22 @@
 #include <stdlib.h>
 #include <std_srvs/Empty.h>
 #include <std_msgs/String.h>
+#include <std_msgs/Float32.h>
 
 using namespace std;
 
 class CallbackSub
 {
     public:
-    char length;
-    char width;
-    void lis(const std_msgs::String::ConstPtr& msg){
-        length = msg->data[0];
-        width = msg->data[1];
-
-    //ROS_INFO(hej);
-    //ROS_INFO("Sum: %ld", (long int)hej;
-    /*int outputt (int hej){
-        return hej;
-    }*/
-   
+    float lengthn;
+    float widthn;
+    void lisenterlength(const std_msgs::Float32::ConstPtr& length){
+        lengthn = length->data;
+        cout << lengthn <<endl;
+    }
+    void lisenterwidth(const std_msgs::Float32::ConstPtr& width){
+        widthn = width->data;
+        cout << widthn <<endl;
     }
 };
 
@@ -41,27 +39,17 @@ int main(int argc, char **argv)
     ros::service::waitForService("/turtle1/teleport_absolute", -1);
     ros::ServiceClient teleport_client = n.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
     ros::ServiceClient pen_client = n.serviceClient<turtlesim::SetPen>("/turtle1/set_pen");
-    ros::Subscriber sub = n.subscribe("leng", 1, &CallbackSub::lis, &newCallback);
+    ros::Subscriber subl = n.subscribe("leng", 1, &CallbackSub::lisenterlength, &newCallback);
+    ros::Subscriber subw = n.subscribe("wid", 1, &CallbackSub::lisenterwidth, &newCallback);
     ros::Rate loop_rate(0.5);
     turtlesim::SetPen pen_srv;
     pen_srv.request.off = true;
     pen_client.call(pen_srv);
 
     turtlesim::TeleportAbsolute srv;
-    bool run = true;
-    while (ros::ok())
-    {
-        cout << newCallback.length <<endl;
-        cout << newCallback.width <<endl;
-        ros::spinOnce();
-        loop_rate.sleep();  
-    }
     
-    float wp = 5.5;
-    int lp = 2;
-    
-    srv.request.x = newCallback.length-box_size/2;
-    srv.request.y = 5.5-box_size/2;
+    srv.request.x = newCallback.lengthn-box_size/2;
+    srv.request.y = newCallback.widthn-box_size/2;
     teleport_client.call(srv);
 
     pen_srv.request.off = false;
