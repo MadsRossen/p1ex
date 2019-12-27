@@ -11,7 +11,9 @@
 using namespace std;
 
 void lis(const std_msgs::String::ConstPtr& msg){
-    ROS_INFO("I heard: [%s]", msg->data.c_str());
+    char hej = msg->data[1];
+    //ROS_INFO(hej);
+    
 }
 
 
