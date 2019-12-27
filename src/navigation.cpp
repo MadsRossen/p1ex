@@ -34,7 +34,7 @@ int main(int argc, char **argv)
  while (ros::ok()){
   std_msgs::String msg;
   std::stringstream ss;
-  ss << "length is" << length;
+  ss << "length is" << i;
   msg.data = ss.str();
   ROS_INFO("%s", msg.data.c_str());
   len_pub.publish(msg);
