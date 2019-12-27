@@ -23,15 +23,14 @@ int main(int argc, char **argv)
   //ros::ServiceClient reset = nh.serviceClient<std_srvs::Empty>("reset");
   //ros::Timer timer = nh.createTimer(ros::Duration(0.016), boost::bind(timerCallback, _1, twist_pub));
   float i;
-  int32_t length = (i);
+  int32_t length = i;
   float k;
-  int32_t width = (k);
+  int32_t width = k;
 
   cout << "What is the length ";
   cin >> i;
   //cout << "What is the width ";
   //cin >> width ;
- int count = 0;
  while (ros::ok()){
   std_msgs::String msg;
   std::stringstream ss;
@@ -41,7 +40,6 @@ int main(int argc, char **argv)
   len_pub.publish(msg);
   ros::spinOnce();
   loop_rate.sleep();
-  length;
   }
 
   return 0;
