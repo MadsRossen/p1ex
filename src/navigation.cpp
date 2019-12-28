@@ -5,8 +5,7 @@
 #include <std_srvs/Empty.h>
 #include <iostream>
 #include <turtlesim/TeleportAbsolute.h>
-#include <turtlesim/SetPen.h>
-#include <std_msgs/String.h>
+//#include <turtlesim/SetPen.h>
 #include <sstream>     
 #include <std_msgs/Float32.h>
 using namespace std;
@@ -17,9 +16,9 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "two");
   ros::NodeHandle nh;
-  ros::Publisher len_pub = nh.advertise<std_msgs::Float32>("leng", 10);
-  ros::Publisher wid_pub = nh.advertise<std_msgs::Float32>("wid", 10);
-  ros::Rate loop_rate(0.5);
+  ros::Publisher len_pub = nh.advertise<std_msgs::Float32>("leng", 1000);
+  ros::Publisher wid_pub = nh.advertise<std_msgs::Float32>("wid", 1000);
+  ros::Rate loop_rate(10);
   //ros::Subscriber pose_sub = nh.subscribe("turtle1/pose", 1, poseCallback);
   //ros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
   //ros::ServiceClient reset = nh.serviceClient<std_srvs::Empty>("reset");
@@ -28,9 +27,9 @@ int main(int argc, char **argv)
 
   float k;
   
-  cout << "What is the length ";
+  cout << "What is the length " << endl;
   cin >> i;
-  cout << "What is the width ";
+  cout << "What is the width " << endl;
   cin >> k;
  while (ros::ok()){
   std_msgs::Float32 length;
