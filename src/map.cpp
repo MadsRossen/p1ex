@@ -55,7 +55,8 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "one");
     CallbackSub newCallback;
     //ros ();
-    float box_size = ros::param::param("~box_size", 9);
+    //The blue areas size is actually 11X11
+    float box_size = ros::param::param("~box_size", 11);
     ros::NodeHandle n;
     ros::service::waitForService("/turtle1/teleport_absolute", -1);
     ros::ServiceClient teleport_client = n.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
@@ -87,8 +88,8 @@ int main(int argc, char **argv)
             cout <<"Længden: " << newCallback.lengthn << endl;
             cout <<"Bredden: " << newCallback.widthn << endl;
 
-            srv.request.x = newCallback.lengthn - box_size/2;
-            srv.request.y = newCallback.widthn - box_size/2;
+            srv.request.x = (box_size-newCallback.lengthn)/2;
+            srv.request.y = (box_size-newCallback.widthn)/2;
             teleport_client.call(srv);
 
             pen_srv.request.off = false;
@@ -97,20 +98,20 @@ int main(int argc, char **argv)
             pen_srv.request.g = 228;
             pen_client.call(pen_srv);
 
-            srv.request.x = 5.5-box_size/2;
-            srv.request.y = 5.5+box_size/2;
+            srv.request.x = (box_size-newCallback.lengthn)/2;
+            srv.request.y = (box_size+newCallback.widthn)/2;
             teleport_client.call(srv);
 
-            srv.request.x = 5.5+box_size/2;
-            srv.request.y = 5.5+box_size/2;
+            srv.request.x = (box_size+newCallback.lengthn)/2;
+            srv.request.y = (box_size+newCallback.widthn)/2;
             teleport_client.call(srv);
 
-            srv.request.x = 5.5+box_size/2;
-            srv.request.y = 5.5-box_size/2;
+            srv.request.x = (box_size+newCallback.lengthn)/2;
+            srv.request.y = (box_size-newCallback.widthn)/2;
             teleport_client.call(srv);
 
-            srv.request.x = 5.5-box_size/2;
-            srv.request.y = 5.5-box_size/2;
+            srv.request.x = (box_size-newCallback.lengthn)/2;
+            srv.request.y = (box_size-newCallback.widthn)/2;
             teleport_client.call(srv);
 
             pen_srv.request.off = true;
