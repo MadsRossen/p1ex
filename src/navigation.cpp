@@ -8,6 +8,7 @@
 //#include <turtlesim/SetPen.h>
 #include <sstream>     
 #include <std_msgs/Float32.h>
+#include "p1ex/AddTwoInts.h"
 using namespace std;
 
 
@@ -16,36 +17,103 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "two");
   ros::NodeHandle nh;
-  ros::Publisher len_pub = nh.advertise<std_msgs::Float32>("leng", 1000);
-  ros::Publisher wid_pub = nh.advertise<std_msgs::Float32>("wid", 1000);
-  ros::Rate loop_rate(10);
-  //ros::Subscriber pose_sub = nh.subscribe("turtle1/pose", 1, poseCallback);
-  //ros::Publisher twist_pub = nh.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
-  //ros::ServiceClient reset = nh.serviceClient<std_srvs::Empty>("reset");
-  //ros::Timer timer = nh.createTimer(ros::Duration(0.016), boost::bind(timerCallback, _1, twist_pub));
-  float i;
+  float box_size = ros::param::param("~box_size", 11);
+  ros::service::waitForService("/turtle1/teleport_absolute", -1);
+  ros::ServiceClient client = nh.serviceClient<p1ex::AddTwoInts>("add_two_ints");
+  ros::ServiceClient teleport_client = nh.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
+  p1ex::AddTwoInts srv;
+  turtlesim::TeleportAbsolute srv1;
+  ros::Rate loop_rate(5);
+  bool runLoop = true;
+  float i, k;
+  int turn = 2;
+  float jj, ii, Y_MIN, Y_MAX, X_MAX, X_MIN;
 
-  float k;
   
   cout << "What is the length " << endl;
-  cin >> i;
+  cin >> ii;
   cout << "What is the width " << endl;
-  cin >> k;
- while (ros::ok()){
-  std_msgs::Float32 length;
-  length.data = i;
-  std_msgs::Float32 width;
-  width.data = k;
-  //std::stringstream ss;
-  //ss << i << k;
-  //msg.data = ss.str();
-  //ROS_INFO("%s", msg.data.c_str());
+  cin >> jj;
+  srv.request.a = ii;
+  srv.request.b = jj;
+  Y_MIN = (box_size-jj)/2;
+  Y_MAX = (box_size+jj)/2;
+  X_MAX = (box_size+ii)/2;
+  X_MIN = (box_size-ii)/2;
+  ii = X_MIN;
+  jj = Y_MAX;
+  
+  if (client.call(srv))
+  {
+    ROS_INFO("Sum: %ld", (long int)srv.response.sum);
 
-  len_pub.publish(length);
-  wid_pub.publish(width);
-  ros::spinOnce();
-  loop_rate.sleep();
+    while (runLoop)
+    {
+      srv1.request.x = ii;
+      srv1.request.y = jj;
+      teleport_client.call(srv1);
+      loop_rate.sleep();  
+            if (jj <= Y_MIN)
+            {
+              if (ii >= X_MAX)
+              {
+                runLoop = false;
+                cout << "If1.1"<< endl;
+              }
+              else
+              {
+                ii = X_MAX;
+              //ROS_INFO("If1.2");
+                cout << "If1.2"<< endl;
+              } 
+            }
+            else 
+            {
+              if (ii >= X_MAX)
+              {
+                if (turn == 1)
+                {
+                  ii = X_MAX;
+                  jj = jj - 0.5;
+                  turn = 2;
+                //ROS_INFO("If2.1");
+                  cout << "If2.1"<< endl;
+                }
+                else
+                {
+                  ii = X_MIN;
+                  turn = 1;
+                //ROS_INFO("If2.2");
+                  cout << "If2.2"<< endl;
+                }
+              }
+              else
+              {
+                if (turn == 1)
+                {
+                  ii = X_MIN;
+                  jj = jj - 0.5;
+                  turn = 2;
+                  //ROS_INFO("If3.1");
+                  cout << "If3.1"<< endl;
+                }
+                else
+                {
+                  ii = X_MAX;
+                  turn = 1;
+                  //ROS_INFO("If3.2");
+                  cout << "If3.2"<< endl;
+                }
+              }
+            }
+    }
   }
+  else
+  {
+    ROS_ERROR("Failed to call service add_two_ints");
+    return 1;
+  }
+ // }
 
   return 0;
 }

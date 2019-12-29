@@ -51,6 +51,12 @@
   <buildtool_depend>catkin</buildtool_depend>
 <depend>roscpp</depend>
 <depend>turtlesim</depend>
+<depend>rospy</depend>
+<depend>std_msgs</depend>
+<!--depend>message_generation</depend>
+<depend>message_runtime</depend-->
+<build_depend>message_generation</build_depend>
+<exec_depend>message_runtime</exec_depend>
 
 <!--build_depend>message_generation</build_depend-->
 <!--build_export_depend>message_runtime</build_export_depend-->

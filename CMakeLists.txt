@@ -17,12 +17,30 @@ project(p1ex)
  COMPONENTS
  roscpp
  turtlesim
+ message_generation
+ rospy
+ std_msgs
  #geometry_msgs
  #std_msgs
  #message_generation
  #sensor_msgs
  )
+ add_service_files(
+  FILES
+  AddTwoInts.srv
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
+ catkin_package(
+  CATKIN_DEPENDS
+  roscpp 
+  turtlesim
+  rospy
+  std_msgs
+  message_runtime)
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
@@ -64,6 +82,7 @@ project(p1ex)
 #   Service2.srv
 #)
 
+
 ## Generate actions in the 'action' folder
 # add_action_files(
 #   FILES
@@ -88,15 +107,12 @@ project(p1ex)
 ##   * uncomment the "generate_dynamic_reconfigure_options" section below
 ##     and list every .cfg file to be processed
 
-catkin_package(
-  CATKIN_DEPENDS
-  roscpp 
-  turtlesim
+
 # message_runtime
 #  geometry_msgs
  # std_msgs
  # sensor_msgs
- )
+
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
 # generate_dynamic_reconfigure_options(
 #   cfg/DynReconf1.cfg
