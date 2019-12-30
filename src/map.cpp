@@ -1,14 +1,8 @@
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
-#include <turtlesim/Pose.h>
 #include <iostream>
 #include <turtlesim/SetPen.h>
 #include <turtlesim/TeleportAbsolute.h>
-#include <stdlib.h>
-#include <std_srvs/Empty.h>
-#include <std_msgs/String.h>
-#include <std_msgs/Float32.h>
-#include <unistd.h>
 #include "p1ex/AddTwoInts.h"
 
 using namespace std;
