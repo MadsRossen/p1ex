@@ -4,6 +4,7 @@
 #include <turtlesim/Pose.h>
 #include <std_srvs/Empty.h>
 #include <iostream>
+#include <turtlesim/SetPen.h>
 #include <turtlesim/TeleportAbsolute.h>
 //#include <turtlesim/SetPen.h>
 #include <sstream>     
@@ -21,8 +22,10 @@ int main(int argc, char **argv)
   ros::service::waitForService("/turtle1/teleport_absolute", -1);
   ros::ServiceClient client = nh.serviceClient<p1ex::AddTwoInts>("add_two_ints");
   ros::ServiceClient teleport_client = nh.serviceClient<turtlesim::TeleportAbsolute>("/turtle1/teleport_absolute");
+  ros::ServiceClient pen_client = nh.serviceClient<turtlesim::SetPen>("/turtle1/set_pen");
   p1ex::AddTwoInts srv;
   turtlesim::TeleportAbsolute srv1;
+  turtlesim::SetPen pen_srv;
   ros::Rate loop_rate(5);
   bool runLoop = true;
   float i, k;
@@ -36,10 +39,10 @@ int main(int argc, char **argv)
   cin >> jj;
   srv.request.a = ii;
   srv.request.b = jj;
-  Y_MIN = (box_size-jj)/2;
-  Y_MAX = (box_size+jj)/2;
-  X_MAX = (box_size+ii)/2;
-  X_MIN = (box_size-ii)/2;
+  Y_MIN = (box_size-jj)/2 +0.5;
+  Y_MAX = (box_size+jj)/2 -0.3;
+  X_MAX = (box_size+ii)/2 -0.3;
+  X_MIN = (box_size-ii)/2 +0.3;
   ii = X_MIN;
   jj = Y_MAX;
   
@@ -52,6 +55,12 @@ int main(int argc, char **argv)
       srv1.request.x = ii;
       srv1.request.y = jj;
       teleport_client.call(srv1);
+      pen_srv.request.off = false;
+      pen_srv.request.width = 8;
+      pen_srv.request.r = 10;
+      pen_srv.request.g = 228;
+      pen_srv.request.b = 228;
+      pen_client.call(pen_srv);
       loop_rate.sleep();  
             if (jj <= Y_MIN)
             {

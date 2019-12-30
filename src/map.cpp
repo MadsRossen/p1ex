@@ -70,13 +70,6 @@ bool add(p1ex::AddTwoInts::Request  &req,
             srv.request.x = 5.5;
             srv.request.y = 5.5;
             teleport_client.call(srv);
-
-            pen_srv.request.off = false;
-            pen_srv.request.width = 8;
-            pen_srv.request.r = 10;
-            pen_srv.request.g = 228;
-            pen_srv.request.b = 228;
-            pen_client.call(pen_srv);
            
         
     return true;
