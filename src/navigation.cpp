@@ -1,14 +1,8 @@
-#include <boost/bind.hpp>
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
-#include <turtlesim/Pose.h>
-#include <std_srvs/Empty.h>
 #include <iostream>
 #include <turtlesim/SetPen.h>
 #include <turtlesim/TeleportAbsolute.h>
-//#include <turtlesim/SetPen.h>
-#include <sstream>     
-#include <std_msgs/Float32.h>
 #include "p1ex/AddTwoInts.h"
 using namespace std;
 
