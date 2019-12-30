@@ -6,7 +6,34 @@
 #include "p1ex/AddTwoInts.h"
 using namespace std;
 
+int validateInput (float f_Input, bool confirm_Input, string dimension )
+{
+  while (!confirm_Input)
+  {
+    cout << "Define the "<< dimension <<":"<<" (Must be between 1 and 11) " << endl;
+    cin >> f_Input;
 
+    if(cin.fail())
+      {
+        cin.clear();
+        //cin.ignore(numeric_limits<streamsize>::max());
+        cin.ignore(1000, '\n');
+        cout << "You have entered wrong "<< dimension <<" input." << endl;
+        //cin>>f_Input;
+      }
+    else if(!cin.fail() && f_Input > 11 || f_Input < 1)
+    {
+      cout << "The " << dimension << " is not between 1 and 11" << endl;
+      //cout << "Enter new "<< dimension << endl;
+      //cin >> f_Input;
+    }
+    else if (!cin.fail() && f_Input < 11 && f_Input > 1)
+    {
+      confirm_Input = true;
+    }
+  }
+  return f_Input;
+}
 
 int main(int argc, char **argv)
 {
@@ -24,25 +51,13 @@ int main(int argc, char **argv)
   bool runLoop = true;
   //float i, k;
   int turn = 2;
+  bool jjGood = false;
+  bool iiGood = false;
   float jj, ii, Y_MIN, Y_MAX, X_MAX, X_MIN;
 
-  cout << "What is the length. Must be between 1 and 11 " << endl;
-  cin >> ii;
-while  ( ii > 11 || ii < 1 ){
-    cout << "The length is not between 1 and 11" << endl;
-    cout << "Enter new length" << endl;
-    cin >> ii;
-    }
+  ii = validateInput(ii, iiGood, "lenght");
+  jj = validateInput(jj, jjGood, "width");
 
-  cout << "What is the width. Must be between 1 and 11 " << endl;
-  cin >> jj;
-
-while  ( jj > 11 || jj < 1){
-    cout << "The width is not between 1 and 11" << endl;
-    cout << "Enter new width" << endl;
-    cin >> jj;
-    }
- 
   srv.request.a = ii;
   srv.request.b = jj;
   Y_MIN = (box_size-jj)/2 +0.5;
