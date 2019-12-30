@@ -28,15 +28,37 @@ int main(int argc, char **argv)
   turtlesim::SetPen pen_srv;
   ros::Rate loop_rate(5);
   bool runLoop = true;
-  float i, k;
+  //float i, k;
   int turn = 2;
   float jj, ii, Y_MIN, Y_MAX, X_MAX, X_MIN;
 
-  
-  cout << "What is the length " << endl;
+  cout << "What is the length. Must be between 1 and 11 " << endl;
   cin >> ii;
-  cout << "What is the width " << endl;
+ while  ( ii > 11 ){
+    cout << "The length is not between 1 and 11" << endl;
+     cout << "Enter new length" << endl;
+    cin >> ii;
+    }
+while ( ii < 1 ){
+    cout << "The length is not between 1 and 11" << endl;
+    cout << "Enter new length" << endl;
+    cin >> ii; 
+    }
+
+  cout << "What is the width. Must be between 1 and 11 " << endl;
   cin >> jj;
+
+while  ( jj > 11 ){
+    cout << "The width is not between 1 and 11" << endl;
+    cout << "Enter new width" << endl;
+    cin >> jj;
+    }
+while ( jj < 1 ){
+    cout << "The width is not between 1 and 11" << endl;
+    cout << "Enter new width" << endl;
+    cin >> jj;
+   }
+ 
   srv.request.a = ii;
   srv.request.b = jj;
   Y_MIN = (box_size-jj)/2 +0.5;
