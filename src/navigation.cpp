@@ -34,30 +34,20 @@ int main(int argc, char **argv)
 
   cout << "What is the length. Must be between 1 and 11 " << endl;
   cin >> ii;
- while  ( ii > 11 ){
-    cout << "The length is not between 1 and 11" << endl;
-     cout << "Enter new length" << endl;
-    cin >> ii;
-    }
-while ( ii < 1 ){
+while  ( ii > 11 || ii < 1 ){
     cout << "The length is not between 1 and 11" << endl;
     cout << "Enter new length" << endl;
-    cin >> ii; 
+    cin >> ii;
     }
 
   cout << "What is the width. Must be between 1 and 11 " << endl;
   cin >> jj;
 
-while  ( jj > 11 ){
+while  ( jj > 11 || jj < 1){
     cout << "The width is not between 1 and 11" << endl;
     cout << "Enter new width" << endl;
     cin >> jj;
     }
-while ( jj < 1 ){
-    cout << "The width is not between 1 and 11" << endl;
-    cout << "Enter new width" << endl;
-    cin >> jj;
-   }
  
   srv.request.a = ii;
   srv.request.b = jj;
