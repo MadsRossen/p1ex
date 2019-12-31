@@ -6,32 +6,33 @@
 #include "p1ex/AddTwoInts.h"
 using namespace std;
 
+//Function for getting and validating input.
 int validateInput (float f_Input, bool confirm_Input, string dimension )
 {
   while (!confirm_Input)
   {
+    //Get input from user.
     cout << "Define the "<< dimension <<":"<<" (Must be between 1 and 11) " << endl;
     cin >> f_Input;
-
+    //Checks if the input data does not match the varibale
     if(cin.fail())
       {
         cin.clear();
-        //cin.ignore(numeric_limits<streamsize>::max());
         cin.ignore(1000, '\n');
         cout << "You have entered wrong "<< dimension <<" input." << endl;
-        //cin>>f_Input;
       }
+    //if the input data matches, check if it above 11 or below 1
     else if(!cin.fail() && f_Input > 11 || f_Input < 1)
     {
       cout << "The " << dimension << " is not between 1 and 11" << endl;
-      //cout << "Enter new "<< dimension << endl;
-      //cin >> f_Input;
     }
+    //If the input is valid we can end the function
     else if (!cin.fail() && f_Input < 11 && f_Input > 1)
     {
       confirm_Input = true;
     }
   }
+  //returning the valid input from the user.
   return f_Input;
 }
 
@@ -55,6 +56,7 @@ int main(int argc, char **argv)
   bool iiGood = false;
   float jj, ii, Y_MIN, Y_MAX, X_MAX, X_MIN;
 
+  //Running the validation function to receive valid input from user. 
   ii = validateInput(ii, iiGood, "lenght");
   jj = validateInput(jj, jjGood, "width");
 
@@ -69,8 +71,6 @@ int main(int argc, char **argv)
   
   if (client.call(srv))
   {
-    ROS_INFO("Sum: %ld", (long int)srv.response.sum);
-
     while (runLoop)
     {
       srv1.request.x = ii;
@@ -93,7 +93,6 @@ int main(int argc, char **argv)
               else
               {
                 ii = X_MAX;
-              //ROS_INFO("If1.2");
                 cout << "If1.2"<< endl;
               } 
             }
@@ -106,14 +105,12 @@ int main(int argc, char **argv)
                   ii = X_MAX;
                   jj = jj - 0.5;
                   turn = 2;
-                //ROS_INFO("If2.1");
                   cout << "If2.1"<< endl;
                 }
                 else
                 {
                   ii = X_MIN;
                   turn = 1;
-                //ROS_INFO("If2.2");
                   cout << "If2.2"<< endl;
                 }
               }
@@ -124,14 +121,12 @@ int main(int argc, char **argv)
                   ii = X_MIN;
                   jj = jj - 0.5;
                   turn = 2;
-                  //ROS_INFO("If3.1");
                   cout << "If3.1"<< endl;
                 }
                 else
                 {
                   ii = X_MAX;
                   turn = 1;
-                  //ROS_INFO("If3.2");
                   cout << "If3.2"<< endl;
                 }
               }
