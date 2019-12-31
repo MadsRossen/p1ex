@@ -38,7 +38,7 @@ int validateInput (float f_Input, bool confirm_Input, string dimension )
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "two");
+  ros::init(argc, argv, "navigation");
   ros::NodeHandle nh;
   float box_size = ros::param::param("~box_size", 11);
   ros::service::waitForService("/turtle1/teleport_absolute", -1);

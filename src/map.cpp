@@ -72,7 +72,7 @@ bool add(p1ex::AddTwoInts::Request  &req,
 int main(int argc, char **argv)
 {
     //Here we define our map
-    ros::init(argc, argv, "one");
+    ros::init(argc, argv, "map");
     ros::NodeHandle n;
 
     ros::ServiceServer service = n.advertiseService("add_two_ints", add);
