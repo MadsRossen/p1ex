@@ -88,12 +88,12 @@ int main(int argc, char **argv)
               if (ii >= X_MAX)
               {
                 runLoop = false;
-                cout << "If1.1"<< endl;
+                cout << "Result 6"<< endl;
               }
               else
               {
                 ii = X_MAX;
-                cout << "If1.2"<< endl;
+                cout << "Result 5"<< endl;
               } 
             }
             else 
@@ -105,13 +105,13 @@ int main(int argc, char **argv)
                   ii = X_MAX;
                   jj = jj - 0.5;
                   turn = 2;
-                  cout << "If2.1"<< endl;
+                  cout << "Result 2"<< endl;
                 }
                 else
                 {
                   ii = X_MIN;
                   turn = 1;
-                  cout << "If2.2"<< endl;
+                  cout << "Result 3"<< endl;
                 }
               }
               else
@@ -121,13 +121,13 @@ int main(int argc, char **argv)
                   ii = X_MIN;
                   jj = jj - 0.5;
                   turn = 2;
-                  cout << "If3.1"<< endl;
+                  cout << "Result 4"<< endl;
                 }
                 else
                 {
                   ii = X_MAX;
                   turn = 1;
-                  cout << "If3.2"<< endl;
+                  cout << "Result 1"<< endl;
                 }
               }
             }
